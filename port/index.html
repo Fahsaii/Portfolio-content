@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ฟ้าใส ทองภักดี — Content Creator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f6f1ee;
+    --cream-card:#fffdfb;
+    --ink:#444444;
+    --ink-soft:#6d6663;
+    --rose:#da909e;
+    --rose-deep:#b96477;
+    --rose-tint:#f0dade;
+    --rose-pale:#f8e9eb;
+    --line: rgba(68,68,68,0.12);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    margin:0;
+    color:var(--ink);
+    font-weight:600;
+  }
+  .script{
+    font-family:'Caveat',cursive;
+    color:var(--rose-deep);
+  }
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--rose);color:#fff;}
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:fixed;top:0;left:0;right:0;
+    z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 6vw;
+    background:transparent;
+  }
+  .nav-name{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:1.05rem;
+    letter-spacing:.02em;
+    color:var(--ink);
+    text-shadow:0 1px 14px rgba(246,241,238,0.9), 0 1px 3px rgba(246,241,238,0.9);
+  }
+  .nav-name span{color:var(--rose-deep);}
+  .nav-links{
+    display:flex;gap:28px;
+    font-size:.86rem;
+    font-weight:600;
+    letter-spacing:.03em;
+  }
+  .nav-links a{
+    position:relative;
+    color:var(--ink-soft);
+    transition:color .2s ease;
+    padding:4px 0;
+    text-shadow:0 1px 14px rgba(246,241,238,0.9), 0 1px 3px rgba(246,241,238,0.9);
+  }
+  .nav-links a:hover{color:var(--rose-deep);}
+  .nav-links a::after{
+    content:'';
+    position:absolute;left:0;bottom:0;
+    width:0;height:2px;background:var(--rose);
+    transition:width .25s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  @media (max-width:720px){ .nav-links{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:150px 6vw 90px;
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:56px;
+    align-items:center;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .hero::before{
+    content:'';
+    position:absolute;
+    top:-120px;right:-120px;
+    width:420px;height:420px;
+    background:radial-gradient(circle, var(--rose-tint) 0%, transparent 70%);
+    z-index:0;
+    pointer-events:none;
+  }
+  .avatar-wrap{
+    position:relative;
+    width:220px;height:220px;
+    flex-shrink:0;
+    z-index:1;
+  }
+  .avatar-ring{
+    position:absolute;inset:-10px;
+    border-radius:50%;
+    background:conic-gradient(from 200deg, var(--rose) 0%, var(--rose-deep) 30%, #f0c6cd 55%, var(--rose) 100%);
+    animation:spin 14s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce){ .avatar-ring{animation:none;} }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .avatar-inner{
+    position:absolute;inset:6px;
+    border-radius:50%;
+    background:var(--cream);
+    padding:6px;
+  }
+  .avatar-inner img{
+    width:100%;height:100%;
+    border-radius:50%;
+    object-fit:cover;
+    object-position: top; /* shift image so head is not cut */
+    display:block;
+  }
+  .avatar-badge{
+    position:absolute;
+    bottom:6px;right:6px;
+    background:var(--ink);
+    color:var(--cream);
+    font-size:.68rem;
+    font-weight:700;
+    letter-spacing:.06em;
+    padding:6px 10px;
+    border-radius:20px;
+    box-shadow:0 4px 12px rgba(68,68,68,0.25);
+  }
+  .hero-copy{position:relative;z-index:1;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:.8rem;font-weight:700;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--rose-deep);
+    margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:'';width:22px;height:2px;background:var(--rose-deep);
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 5vw, 3.6rem);
+    line-height:1.05;
+    margin-bottom:10px;
+  }
+  .hero .role{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:1.3rem;
+    color:var(--rose-deep);
+    margin-bottom:20px;
+  }
+  .hero p.bio{
+    max-width:560px;
+    font-size:1rem;
+    line-height:1.75;
+    color:var(--ink-soft);
+    margin-bottom:22px;
+  }
+  .tag-row{
+    display:flex;flex-wrap:wrap;gap:10px;
+    margin-bottom:28px;
+  }
+  .hashtag{
+    font-size:.82rem;font-weight:600;
+    background:var(--rose-pale);
+    color:var(--rose-deep);
+    padding:6px 14px;
+    border-radius:20px;
+    border:1px solid var(--rose-tint);
+  }
+  .contact-row{
+    display:flex;flex-wrap:wrap;gap:22px;
+  }
+  .contact-item{
+    display:flex;align-items:center;gap:9px;
+    font-size:.88rem;
+    color:var(--ink);
+    font-weight:500;
+  }
+  .contact-item .ico{
+    width:34px;height:34px;flex-shrink:0;
+    border-radius:50%;
+    background:var(--cream-card);
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .contact-item svg{width:16px;height:16px;stroke:var(--rose-deep);}
+
+  /* ---------- STORY HIGHLIGHTS ---------- */
+  .highlights{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 6vw 70px;
+    display:flex;
+    gap:34px;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .highlights::-webkit-scrollbar{display:none;}
+  .highlight{
+    display:flex;flex-direction:column;align-items:center;gap:9px;
+    cursor:pointer;
+    flex-shrink:0;
+    background:none;border:none;
+    font-family:'Inter',sans-serif;
+  }
+  .highlight .ring{
+    width:56px;height:56px;border-radius:50%;
+    padding:3px;
+    background:linear-gradient(135deg, var(--rose), var(--rose-deep));
+    transition:transform .2s ease;
+  }
+  .highlight:hover .ring{transform:translateY(-4px) scale(1.04);}
+  .highlight .circle{
+    width:100%;height:100%;border-radius:50%;
+    background:var(--cream-card);
+    display:flex;align-items:center;justify-content:center;
+    border:2px solid var(--cream);
+  }
+  .highlight .circle svg{width:22px;height:22px;stroke:var(--rose-deep);}
+  .highlight span{
+    font-size:.78rem;font-weight:600;color:var(--ink-soft);
+    letter-spacing:.01em;
+  }
+
+  /* ---------- SECTION shell ---------- */
+  section{
+    max-width:1180px;
+    margin:0 auto;
+    padding:70px 6vw;
+    scroll-margin-top:90px;
+  }
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin-bottom:40px;
+  }
+  .section-head .num{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:1rem;
+    color:var(--rose);
+  }
+  .section-head h2{
+    font-size:clamp(1.6rem,3vw,2.2rem);
+  }
+  .section-head .rule{
+    flex:1;height:1px;background:var(--line);
+  }
+
+  /* ---------- ABOUT ---------- */
+  #about{
+    background:var(--cream-card);
+    border-radius:28px;
+    margin-top:10px;
+  }
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:50px;
+  }
+  .about-grid p{
+    font-size:1.02rem;
+    line-height:1.9;
+    color:var(--ink);
+  }
+  .about-photo-card .photo-slot {
+    aspect-ratio: auto;
+    background: transparent;
+    border: none;
+    height: auto;
+  }
+  .about-photo-card .photo-slot img {
+    position: static;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 16px;
+  }
+  .quote-card{
+    background:var(--rose-pale);
+    border-radius:20px;
+    padding:28px 26px;
+    position:relative;
+  }
+  .quote-card .mark{
+    font-family:'Fraunces',serif;
+    font-size:3.4rem;
+    color:var(--rose);
+    line-height:.4;
+    display:block;
+    margin-bottom:14px;
+  }
+  .quote-card p{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:1.15rem;
+    line-height:1.6;
+    color:var(--rose-deep);
+  }
+  @media (max-width:820px){ .about-grid{grid-template-columns:1fr;} }
+
+  /* ---------- EXPERIENCE feed ---------- */
+  .feed{
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+  }
+  .post{
+    background:var(--cream-card);
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:28px 30px;
+    transition:box-shadow .25s ease, transform .25s ease;
+  }
+  .post:hover{
+    box-shadow:0 16px 40px rgba(68,68,68,0.08);
+    transform:translateY(-3px);
+  }
+  .post-head{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:16px;
+  }
+  .post-icon{
+    width:42px;height:42px;border-radius:12px;
+    background:var(--rose-pale);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .post-icon svg{width:20px;height:20px;stroke:var(--rose-deep);}
+  .post-head h3{font-size:1.12rem;}
+  .post-head .sub{
+    font-size:.82rem;color:var(--ink-soft);font-weight:500;
+  }
+  .post-features{
+    font-size:.78rem;font-weight:700;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--rose-deep);
+    margin:16px 0 10px;
+  }
+  .chip-list{
+    display:flex;flex-wrap:wrap;gap:8px;
+  }
+  .chip{
+    font-size:.83rem;
+    background:var(--cream);
+    border:1px solid var(--line);
+    padding:6px 13px;
+    border-radius:14px;
+    color:var(--ink);
+  }
+  .post ul.plain{
+    margin:0;padding-left:0;list-style:none;
+    display:flex;flex-direction:column;gap:9px;
+  }
+  .post ul.plain li{
+    position:relative;
+    padding-left:20px;
+    font-size:.94rem;
+    line-height:1.6;
+    color:var(--ink);
+  }
+  .post ul.plain li::before{
+    content:'';
+    position:absolute;left:0;top:9px;
+    width:7px;height:7px;border-radius:50%;
+    background:var(--rose);
+  }
+
+  /* ---------- PORTFOLIO SLOTS ---------- */
+  .portfolio-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:12px;
+    margin:18px 0 22px;
+  }
+  .portfolio-grid.single{ grid-template-columns:1fr; }
+  .portfolio-slot{
+    position:relative;
+    aspect-ratio:4/3;
+    border-radius:16px;
+    overflow:hidden;
+    background:var(--rose-pale);
+    border:1.5px dashed var(--rose-tint);
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .portfolio-grid.single .portfolio-slot{ aspect-ratio:16/9; }
+  .portfolio-slot:hover{
+    border-color:var(--rose);
+    background:#f4e2e5;
+  }
+  .portfolio-slot img{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .slot-placeholder{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:7px;
+    padding:10px;text-align:center;
+    color:var(--rose-deep);
+  }
+  .slot-placeholder svg{width:24px;height:24px;stroke:var(--rose-deep);opacity:.8;}
+  .slot-placeholder span{
+    font-size:.72rem;font-weight:600;line-height:1.4;
+  }
+  .slot-placeholder code{
+    display:inline-block;margin-top:2px;
+    font-size:.66rem;font-family:'Inter',monospace;
+    background:rgba(255,255,255,0.55);
+    color:var(--ink-soft);
+    padding:2px 7px;border-radius:6px;
+  }
+  .play-badge{
+    position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    width:54px;height:54px;border-radius:50%;
+    background:rgba(68,68,68,0.55);
+    display:flex;align-items:center;justify-content:center;
+    z-index:2;
+  }
+  .play-badge svg{width:20px;height:20px;fill:#fff;stroke:none;}
+
+  .portfolio-grid.natural-slots .portfolio-slot{ aspect-ratio:auto; height:auto; background:transparent; border:none; }
+  .portfolio-grid.natural-slots .portfolio-slot:hover{ background:transparent; border:none; }
+  .portfolio-grid.natural-slots .portfolio-slot img{ position:static; object-fit:contain; width:100%; height:auto; border-radius:16px; }
+
+  .portfolio-grid.app-mockup .portfolio-slot{ aspect-ratio:9/19; background:transparent; border:none; }
+  .portfolio-grid.app-mockup .portfolio-slot:hover{ background:transparent; border:none; }
+  .portfolio-grid.app-mockup .portfolio-slot img{ object-fit:contain; }
+
+  /* ---------- SKILLS ---------- */
+  .skills-wrap{
+    background:var(--cream-card);
+    border-radius:28px;
+    padding:44px 6vw;
+    margin:0 -6vw;
+  }
+  .skill-cloud{
+    display:flex;flex-wrap:wrap;gap:14px;
+  }
+  .skill-pill{
+    display:flex;align-items:center;gap:10px;
+    background:var(--cream);
+    border:1px solid var(--line);
+    padding:12px 20px;
+    border-radius:30px;
+    font-weight:600;
+    font-size:.95rem;
+    transition:background .2s ease, color .2s ease, transform .2s ease;
+  }
+  .skill-pill:hover{
+    background:var(--rose);
+    color:#fff;
+    transform:translateY(-2px);
+  }
+  .skill-pill .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--rose-deep);
+  }
+  .skill-pill:hover .dot{background:#fff;}
+  .skill-note{
+    margin-top:22px;
+    font-size:.85rem;
+    color:var(--ink-soft);
+    font-style:italic;
+    font-family:'Fraunces',serif;
+  }
+
+  /* ---------- EDUCATION timeline ---------- */
+  .timeline{
+    display:flex;flex-direction:column;
+    border-left:2px solid var(--rose-tint);
+    margin-left:8px;
+  }
+  .tl-item{
+    position:relative;
+    padding:0 0 38px 32px;
+  }
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:'';
+    position:absolute;left:-7px;top:2px;
+    width:12px;height:12px;border-radius:50%;
+    background:var(--rose);
+    border:3px solid var(--cream);
+    box-shadow:0 0 0 2px var(--rose);
+  }
+  .tl-item h3{font-size:1.08rem;margin-bottom:4px;}
+  .tl-item .meta{
+    font-size:.85rem;color:var(--rose-deep);font-weight:600;margin-bottom:6px;
+  }
+  .tl-item p{
+    font-size:.92rem;color:var(--ink-soft);line-height:1.6;margin:2px 0;
+  }
+
+  /* ---------- LANGUAGE ---------- */
+  .lang-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+  }
+  .lang-card{
+    background:var(--cream-card);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:26px 28px;
+  }
+  .lang-card .top{
+    display:flex;justify-content:space-between;align-items:baseline;
+    margin-bottom:12px;
+  }
+  .lang-card h3{font-size:1.1rem;}
+  .lang-card .level{
+    font-size:.8rem;font-weight:700;color:var(--rose-deep);
+  }
+  .meter{
+    height:8px;border-radius:6px;
+    background:var(--rose-pale);
+    overflow:hidden;
+  }
+  .meter span{
+    display:block;height:100%;
+    background:linear-gradient(90deg,var(--rose),var(--rose-deep));
+    border-radius:6px;
+  }
+  @media (max-width:640px){ .lang-grid{grid-template-columns:1fr;} }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    max-width:1180px;
+    margin:0 auto;
+    padding:60px 6vw 50px;
+    text-align:center;
+  }
+  footer h2{
+    font-size:clamp(1.6rem,4vw,2.4rem);
+    margin-bottom:14px;
+  }
+  footer p{color:var(--ink-soft);margin-bottom:26px;}
+  .footer-contacts{
+    display:flex;justify-content:center;flex-wrap:wrap;gap:16px;
+    margin-bottom:34px;
+  }
+  .footer-btn{
+    display:flex;align-items:center;gap:9px;
+    background:var(--ink);
+    color:var(--cream);
+    padding:12px 24px;
+    border-radius:30px;
+    font-weight:600;font-size:.9rem;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .footer-btn:hover{background:var(--rose-deep);transform:translateY(-2px);}
+  .footer-btn svg{width:16px;height:16px;stroke:currentColor;}
+  .copyright{
+    font-size:.8rem;color:var(--ink-soft);
+    border-top:1px solid var(--line);
+    padding-top:22px;
+  }
+
+  @media (max-width:820px){
+    .hero{grid-template-columns:1fr;text-align:center;padding-top:120px;}
+    .hero-copy{display:flex;flex-direction:column;align-items:center;}
+    .eyebrow::before{display:none;}
+    .contact-row{justify-content:center;}
+    .tag-row{justify-content:center;}
+    .avatar-wrap{margin:0 auto;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-name">Fahsai <span>.</span></div>
+  <div class="nav-links">
+    <a href="#about">เกี่ยวกับฉัน</a>
+    <a href="#experience">ประสบการณ์</a>
+    <a href="#skills">ทักษะ</a>
+    <a href="#education">การศึกษา</a>
+    <a href="#language">ภาษา</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding-top:150px;">
+  <div class="avatar-wrap">
+    <div class="avatar-ring"></div>
+    <div class="avatar-inner">
+      <img src="fasaiuniform.jpg" alt="ฟ้าใส ทองภักดี">
+    </div>
+  </div>
+  <div class="hero-copy">
+    <div class="role">Content Creator · Fahsai Thongpakdee</div>
+    <h1>ฟ้าใส ทองภักดี</h1>
+    <p class="bio">
+      นักศึกษาสาขาเทคโนโลยีสารสนเทศที่มีความสนใจ ในการสร้างคอนเทนต์ การตลาดดิจิทัล
+      และการเล่าเรื่องผ่านสื่อออนไลน์ — วางแผน ผลิต ตัดต่อ และเขียนคอนเทนต์ พร้อมเรียนรู้สิ่งใหม่และลงมือทำจริงเสมอ
+    </p>
+    <div class="tag-row">
+      <span class="hashtag">#ContentCreator</span>
+      <span class="hashtag">#VideoEditing</span>
+      <span class="hashtag">#DigitalMarketing</span>
+      <span class="hashtag">#UXUI</span>
+    </div>
+    <div class="contact-row">
+      <div class="contact-item">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+        095 295 2241
+      </div>
+      <div class="contact-item">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg></span>
+        fahsai.tpd@gmail.com
+      </div>
+      <div class="contact-item">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+        kao yai modern place
+ตำบลเนินหอม อำเภอเมืองปราจีนบุรี ปราจีนบุรี 25230 
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY HIGHLIGHTS -->
+<div class="highlights">
+  <a href="#about" class="highlight">
+    <div class="ring"><div class="circle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a7 7 0 0 1 7-7h2a7 7 0 0 1 7 7v1"/></svg></div></div>
+    <span>เกี่ยวกับฉัน</span>
+  </a>
+  <a href="#experience" class="highlight">
+    <div class="ring"><div class="circle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div></div>
+    <span>ประสบการณ์</span>
+  </a>
+  <a href="#skills" class="highlight">
+    <div class="ring"><div class="circle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div></div>
+    <span>ทักษะ</span>
+  </a>
+  <a href="#education" class="highlight">
+    <div class="ring"><div class="circle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></div></div>
+    <span>การศึกษา</span>
+  </a>
+  <a href="#language" class="highlight">
+    <div class="ring"><div class="circle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></div></div>
+    <span>ภาษา</span>
+  </a>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-head">
+    <span class="num">01</span>
+    <h2>เกี่ยวกับฉัน</h2>
+    <div class="rule"></div>
+  </div>
+  <div class="about-grid">
+    <p>
+
+
+      บัณฑิตปริญญาตรี สาขาเทคโนโลยีสารสนเทศ คณะเทคโนโลยีและการจัดการอุตสาหกรรม
+      มีความสนใจด้านการสร้างสรรค์คอนเทนต์ การตลาดดิจิทัล และการสื่อสารผ่านสื่อออนไลน์
+      สามารถวางแผนและผลิตคอนเทนต์สำหรับหลากหลายแพลตฟอร์ม ตัดต่อวิดีโอ และเขียนข้อความ
+      ประชาสัมพันธ์ พร้อมเรียนรู้สิ่งใหม่ ๆ และทำงานเป็นทีมได้ดี กล้าลองทำสิ่งใหม่และมีโอกาสศึกษาแนวคิด Content Creator เพื่อพัฒนาทักษะและสร้างประสบการณ์การทำงานจริง
+    </p>
+    <div class="about-photo-card">
+      <div class="portfolio-slot photo-slot">
+        <img src="LINE_20260719_163026.jpg" alt="รูปถ่ายฟ้าใส ทองภักดี">
+      </div>
+    </div>
+  </div> 
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-head">
+    <span class="num">02</span>
+    <h2>ประสบการณ์</h2>
+    <div class="rule"></div>
+  </div>
+  <div class="feed">
+
+    <div class="post">
+      <div class="post-head">
+        <div class="post-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 22v-4h8v4"/></svg></div>
+        <div>
+          <h3>ออกแบบแอปพลิเคชัน Longpao</h3>
+          <div class="sub">ขายรองเท้าแท้ ออกแบบด้วย Figma</div>
+          <div style="margin-top: 6px;"><a href="https://www.figma.com/design/l6vvGFCFfqjYKNwfF2g3I9/app?node-id=0-1&m=dev&t=bxPx8oCREl5zpEfG-1" target="_blank" style="font-size: 0.85rem; font-weight: 600; color: var(--rose-deep); text-decoration: underline;">คลิกเพื่อเข้าชมผลงาน การ Desing เเละ Prototype Figma</a></div>
+          <div style="margin-top: 6px;"><a href="https://www.figma.com/proto/l6vvGFCFfqjYKNwfF2g3I9/app?node-id=0-1&t=eFMf6bWXoE1j96Fn-1" target="_blank" style="font-size: 0.85rem; font-weight: 600; color: var(--rose-deep); text-decoration: underline;">คลิกเพื่อเข้าชมผลงาน Figma </a></div>
+        </div>
+      </div>
+      <div class="post-features">ฟีเจอร์ที่ออกแบบ</div>
+      <div class="chip-list">
+        <span class="chip">เข้าสู่ระบบ / สมัครสมาชิก</span>
+        <span class="chip">แสดงสินค้าตามหมวดหมู่</span>
+        <span class="chip">ระบบค้นหาสินค้า</span>
+        <span class="chip">รายละเอียดสินค้า</span>
+        <span class="chip">เลือกไซซ์และจำนวน</span>
+        <span class="chip">ตะกร้าสินค้า</span>
+        <span class="chip">หน้าชำระเงิน</span>
+        <span class="chip">ติดตามสถานะคำสั่งซื้อ</span>
+        <span class="chip">โปรไฟล์ผู้ใช้งาน</span>
+      </div>
+      <div class="portfolio-grid app-mockup">
+        <div class="portfolio-slot">
+          <img src="longpao-1.png" alt="ภาพผลงาน Longpao หน้าแรก">
+        </div>
+        <div class="portfolio-slot">
+          <img src="longpao-2.png" alt="ภาพผลงาน Longpao ตะกร้าสินค้า">
+        </div>
+        <div class="portfolio-slot">
+          <img src="longpao-3.png" alt="ภาพผลงาน Longpao ชำระเงิน">
+        </div>
+      </div>
+    </div>
+
+    <div class="post">
+      <div class="post-head">
+        <div class="post-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4L3 11l6.5 2.5L12 20l8-16z"/></svg></div>
+        <div>
+          <h3>เว็บไซต์ร้านขายเครื่องดื่มออนไลน์</h3>
+          <div class="sub">พัฒนาเว็บด้วย PHP และ MySQL</div>
+          <div style="margin-top: 6px;"><a href="https://github.com/Fahsaii/Project_liucha" target="_blank" style="font-size: 0.85rem; font-weight: 600; color: var(--rose-deep); text-decoration: underline;">คลิกเพื่อเข้าชมผลงาน ขายเครื่องดื่มออนไลน์</a></div>
+        </div>
+      </div>
+      <ul class="plain">
+        <li>ออกแบบฐานข้อมูลและระบบจัดการสินค้า คำสั่งซื้อ และผู้ใช้งาน</li>
+        <li>เชื่อมต่อการทำงานระหว่าง Frontend และ Backend</li>
+        <li>พัฒนาระบบสมัคร เข้าสู่ระบบ และตะกร้าสินค้า</li>
+        <li>ออกแบบหน้าจอให้ใช้งานง่าย</li>
+      </ul>
+      <a class="portfolio-grid single natural-slots" target="_blank" rel="noopener" title="คลิกเพื่อเข้าชมเว็บไซต์ร้านเสื้อผ้าออนไลน์">
+        <div class="portfolio-slot">
+          <img src="cha5.png" alt="ภาพผลงานเว็บไซต์ร้านเสื้อผ้า หน้าแรก">
+        </div>
+        <div class="portfolio-slot">
+          <img src="cha4.png" alt="ภาพผลงานเว็บไซต์ร้านเสื้อผ้า สินค้า">
+        </div>
+        <div class="portfolio-slot">
+          <img src="cha2.png" alt="ภาพผลงานเว็บไซต์ร้านเสื้อผ้า หลังบ้าน">
+        </div>
+        <div class="portfolio-slot">
+          <img src="cha3.png" alt="ภาพผลงานเว็บไซต์ร้านเสื้อผ้า หลังบ้าน">
+        </div>
+      </a>
+    </div>
+
+    <div class="post">
+      <div class="post-head">
+        <div class="post-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="M17 9l5-3v12l-5-3"/></svg></div>
+        <div>
+          <h3>วิดีโอแนะนำ Smart Farm</h3>
+          <div class="sub">วิชา Internet of Things (IoT)</div>
+          <div style="margin-top: 6px;"><a href="https://www.youtube.com/watch?v=v4C-lY-63yc&t=243s" target="_blank" style="font-size: 0.85rem; font-weight: 600; color: var(--rose-deep); text-decoration: underline;">คลิกเพื่อเข้าชมผลงาน</a></div>
+        </div>
+      </div>
+      <ul class="plain">
+        <li>ผลิตวิดีโอนำเสนอแนวคิด Smart Farm ประกอบรายวิชา IoT</li>
+        <li>ออกแบบเนื้อหาการนำเสนอให้น่าสนใจและเข้าใจง่าย</li>
+        <li>ใช้ AI Voice พากย์เสียงบรรยาย ให้เสียงชัดเจน</li>
+        <li>ตัดต่อวิดีโอพร้อมใส่เอฟเฟกต์ และเผยแพร่ผ่าน YouTube</li>
+      </ul>
+      <a class="portfolio-grid single video-link" href="https://www.youtube.com/watch?v=v4C-lY-63yc&t=243s" target="_blank" rel="noopener">
+        <div class="portfolio-slot">
+          <img src="smart.png" alt="ภาพปกวิดีโอ Smart Farm">
+          <div class="play-badge"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="post">
+      <div class="post-head">
+        <div class="post-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4L3 11l6.5 2.5L12 20l8-16z"/></svg></div>
+        <div>
+          <h3>ร่วมผลิตคอนเทนต์ TikTok</h3>
+          <div class="sub">TikTok: @wwhitesupitchaya</div>
+          <div style="margin-top: 6px;"><a href="https://www.tiktok.com/@wwhitesupitchaya" target="_blank" style="font-size: 0.85rem; font-weight: 600; color: var(--rose-deep); text-decoration: underline;">คลิกเพื่อเข้าชมผลงาน</a></div>
+        </div>
+      </div>
+      <ul class="plain">
+        <li>มีส่วนร่วมในการคิดคอนเทนต์และวางแผนการถ่ายทำวิดีโอสั้นลงบนแพลตฟอร์ม TikTok</li>
+        <li>ตัดต่อวิดีโอให้น่าสนใจ ดึงดูดผู้ชม และเข้าถึงกลุ่มเป้าหมาย</li>
+        <li>ติดตามเทรนด์และนำมาปรับใช้เพื่อเพิ่มการมองเห็นและผู้ติดตาม</li>
+      </ul>
+      <a class="portfolio-grid natural-slots" href="#" target="_blank" rel="noopener" title="คลิกเพื่อเข้าชมผลงาน TikTok">
+        <div class="portfolio-slot">
+          <img src="tiktok.jpg" alt="ภาพผลงาน TikTok 1">
+        </div>
+        <div class="portfolio-slot">
+          <img src="tiktok1.jpg" alt="ภาพผลงาน TikTok 2">
+        </div>
+        <div class="portfolio-slot">
+          <img src="tiktok2.jpg" alt="ภาพผลงาน TikTok 3">
+        </div>
+      </a>
+    </div>
+  
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-head">
+    <span class="num">03</span>
+    <h2>ทักษะความสามารถ</h2>
+    <div class="rule"></div>
+  </div>
+  <div class="skills-wrap">
+    <div class="skill-cloud">
+      <div class="skill-pill"><span class="dot"></span>พื้นฐานการออกแบบ UX/UI</div>
+      <div class="skill-pill"><span class="dot"></span>CapCut · ตัดคลิปสั้น TikTok / Reels</div>
+      <div class="skill-pill"><span class="dot"></span>Canva</div>
+      <div class="skill-pill"><span class="dot"></span>Illustrator (Basic)</div>
+      <div class="skill-pill"><span class="dot"></span>Figma</div>
+      <div class="skill-pill"><span class="dot"></span>HTML / CSS</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-head">
+    <span class="num">04</span>
+    <h2>ประวัติการศึกษา</h2>
+    <div class="rule"></div>
+  </div>
+  <div class="timeline">
+    <div class="tl-item">
+      <h3>มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ</h3>
+      <div class="meta">ชั้นปีที่ 3 · เกรดเฉลี่ย 3.00</div>
+      <p>สาขาเทคโนโลยีสารสนเทศ คณะเทคโนโลยีและการจัดการอุตสาหกรรม</p>
+    </div>
+    <div class="tl-item">
+      <h3>โรงเรียนตราษตระการคุณ</h3>
+      <p>มัธยมศึกษาตอนต้น</p>
+      <div class="meta">โครงการอังกฤษ - English Program</div>
+      <p>มัธยมศึกษาตอนปลาย</p>
+      <div class="meta">โครงการวิทย์ – คณิต – อังกฤษ</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+<!-- LANGUAGE -->
+<section id="language">
+  <div class="section-head">
+    <span class="num">05</span>
+    <h2>ภาษา</h2>
+    <div class="rule"></div>
+  </div>
+  <div class="lang-grid">
+    <div class="lang-card">
+      <div class="top"><h3>ภาษาไทย</h3><span class="level">เจ้าของภาษา</span></div>
+      <div class="meter"><span style="width:100%;"></span></div>
+    </div>
+    <div class="lang-card">
+      <div class="top"><h3>ภาษาอังกฤษ</h3><span class="level">ระดับปานกลาง</span></div>
+      <div class="meter"><span style="width:50%;"></span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <h2>THANK YOU</h2>
+  <div class="footer-contacts">
+    <a class="footer-btn" href="tel:0952952241">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      095 295 2241
+    </a>
+    <a class="footer-btn" href="mailto:fahsai.tpd@gmail.com">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+      fahsai.tpd@gmail.com
+    </a>
+    <a class="footer-btn" href="https://github.com/Fahsaii" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+      GitHub: Fahsaii
+    </a>
+  </div>
+  <div class="copyright">© 2026 ฟ้าใส ทองภักดี</div>
+</footer>
+
+<script>
+ 
+  document.querySelectorAll('.portfolio-slot img').forEach(img => {
+    img.addEventListener('error', () => {
+      img.closest('.portfolio-slot').classList.add('empty');
+      img.remove();
+    }, { once:true });
+  });
+</script>
+
+</body>
+</html>
